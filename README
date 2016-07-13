@@ -1,0 +1,111 @@
+
+Introduction
+============
+
+This directory contains the implementation of the 1.5 approximation
+algorithm (fixed version) for the SUPBR problem.
+
+(SUPBR - "Sorting Unsigned Permutations by Reversals")
+
+The authors of the implementation are:
+        Jose Luis Soncco-Alvarez (jose.soncco.alvarez@gmail.com)
+        and 
+        Mauricio Ayala-Rincon (ayala@unb.br)
+
+Both authors from the Group of Theory of Computation at the University of
+Brasilia.        
+
+Setup
+=====
+
+The source code was tested under MAC OSX and UBUNTU LINUX platforms. As first
+step we need to decompress the file "boost_1_48_0.zip”, and then execute the
+make file:
+$ make clean all
+
+The previous command will generate an executable: "approx"
+
+Input Data
+==========
+
+Initially, the input data was intended to be two permutations that correspond
+to the gene order of two organisms with the same gene set. We assume that the
+genes of the second organism are represented as increasing naturals, leading
+to an identity permutation. Then, we JUST NEED as input the first permutation,
+which maintains the same natural number representation for each gene but in
+the order of the first organism. 
+
+For instance, if the input data is the permutation {2,4,3,1}, it will have the 
+following format:
+4
+2
+4
+3
+1
+
+The first line is the length of the permutation, that is, the number of genes
+of an organism. The remaining lines are the gene order of an organism.
+
+The SUPBR problem consists in finding the minimum number of reversals for
+transforming an unsigned permutation into the identity permutation.
+
+Usage
+=====
+
+This directory includes a test input of length 20 in the file labeled as
+"input_test”.
+
+For running the program, you can simply type: 
+$ ./approx < inputest
+
+The previous command will give as output the number of reversals obtained by
+the 1.5 approximation algorithm (fixed version).
+
+About the Files
+===============
+
+main.c                  : The main file that calls all the procedures for
+                          finding a sorting sequence.
+	               
+breakpointGraph.c       : This file contains procedures for constructing the
+                          breakpoint graph of a permutation.	
+
+cycleDecomposition.c    : This file contains the procedures for constructing a
+                          cycle decomposition of a breakpoint graph, here is
+                          where we used the Edmonds' Maximum Cardinality
+                          Matching algorithm.
+
+reversalGraph.c         : This file contains procedures for constructing a
+                          reversal graph based on a cycle decomposition of
+                          a permutation.
+
+eliminate.c            : This file contains procedures for finding a
+                          eliminating sequence for components of a reversal
+                          graph, also are applied reversals over the initial
+                          permutation in order to sort it.
+
+graphs.h                : This file contains the data structures used in the
+                          project.
+
+Additionally, the Boost Graph Library(BGL) was used, this library contains 
+many graph algorithms. Specifically we used the Edmonds' Maximum Cardinality
+Matching algorithm to find a cycle decomposition that has a large number of 
+2-cycles, see the paper "A 3/2 Approximation Algorithm for Sorting by
+Reversals(Christie)" for more information. The files of the BGL are in the
+directory "boost_1_48_0".
+
+References
+==========
+
+(1) Soncco-Alvarez, J. L., & Ayala-Rincon, M. (2012, October). A genetic
+    approach with a simple fitness function for sorting unsigned permutations
+    by reversals. In Computing Congress (CCC), 2012 7th Colombian (pp. 1-6).
+    IEEE.
+
+Bug Reporting
+=============
+
+If you find any problem in our programs please contact us to: 
+jose.soncco.alvarez@gmail.com
+
+-------------------------------------------------------------------------------
